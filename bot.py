@@ -84,7 +84,7 @@ async def _(event):
             butt = [Button.url("Channel", url=f"https://t.me/{channel}")]
         else:
             msg = welcome_not_joined.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
-            butt = [Button.url("Channel", url=f"https://t.me/{channel}"), Button.inline("UnMute Me", data=f"unmute_{user.id}")]
+            butt = [Button.inline("Unmute 🗣️", data=f"unmute_{user.id}")]
             await BotzHub.edit_permissions(event.chat.id, user.id, until_date=None, send_messages=False)
         
         await event.reply(msg, buttons=butt)
@@ -107,7 +107,7 @@ async def mute_on_msg(event):
         except Exception as e:
             print(str(e))
             return
-        await event.reply(f"Hey {nm}, seems like you haven't joined our channel. Please join @{channel} and then press the button below to unmute yourself!", buttons=[[Button.url("Channel", url=f"https://t.me/{channel}")], [Button.inline("UnMute Me", data=f"unmute_{event.sender_id}")]])
+        await event.reply(f"{nm},Anda **belum berlangganan** [channel](t.me/@{channe}) botty. Silakan [bergabung](t.me/@{channel}) dan **tekan tombol di bawah ini** untuk membongkar diri Anda sendiri", buttons=[[Button.inline("Unmute 🗣️", data=f"unmute_{event.sender_id}")]])
 
 
 @BotzHub.on(events.callbackquery.CallbackQuery(data=re.compile(b"unmute_(.*)")))
@@ -117,23 +117,22 @@ async def _(event):
         x = await get_user_join(uid)
         nm = (await BotzHub(GetFullUserRequest(uid))).user.first_name
         if x is False:
-            await event.answer(f"You haven't joined @{channel} yet!", cache_time=0, alert=True)
+            await event.answer(f"Anda belum bergabung di channel @{channel!", cache_time=0, alert=True)
         elif x is True:
             try:
                 await BotzHub.edit_permissions(event.chat.id, uid, until_date=None, send_messages=True)
             except Exception as e:
                 print(str(e))
                 return
-            msg = f"Welcome to {(await event.get_chat()).title}, {nm}!\nGood to see you here!"
-            butt = [Button.url("Channel", url=f"https://t.me/{channel}")]
+            msg = f"•Welcome {nm}  👋 This is {(await event.get_chat()).title}•\n\nChannel » @BottyCu\n\nAnda bebas menyarankan apa pun yang terkait pembahasan member, Minta bantuan apa pun dan bantu pengembangannya ❤️\n\nRead the rules and join the Chat ...! , Everyone must follow the rules🥳"
+            butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
             await event.edit(msg, buttons=butt)
     else:
         await event.answer("You are an old member and can speak freely! This isn't for you!", cache_time=0, alert=True)
 
 @BotzHub.on(events.NewMessage(pattern="/start"))
 async def strt(event):
-    await event.reply(f"Hi. I'm a force subscribe bot made specially for @{channel}!\n\nCheckout @BotzHub :)", buttons=[Button.url("Channel", url=f"https://t.me/{channel}"), Button.url("Repository", url="https://github.com/xditya/ForceSub")])
-
+    await event.reply(f"Bot ini milik @BottyCu,Hanya admin yang bisa mengakses bot ini.")
     
 print("ForceSub Bot has started.\nDo visit @BotzHub!")
 BotzHub.run_until_disconnected()
