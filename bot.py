@@ -81,7 +81,7 @@ async def _(event):
         x = await get_user_join(user.id)
         if x is True:
             msg = welcome_msg.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
-            butt = [Button.url("Channel", url=f"https://t.me/{channel}")]
+            butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
         else:
             msg = welcome_not_joined.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
             butt = [Button.inline("Unmute 🗣️", data=f"unmute_{user.id}")]
