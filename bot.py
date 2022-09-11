@@ -107,7 +107,7 @@ async def mute_on_msg(event):
         except Exception as e:
             print(str(e))
             return
-        await event.reply(f"{nm},Anda **belum berlangganan** [channel](t.me/@{channe}) botty. Silakan [bergabung](t.me/@{channel}) dan **tekan tombol di bawah ini** untuk membongkar diri Anda sendiri", buttons=[[Button.inline("Unmute 🗣️", data=f"unmute_{event.sender_id}")]])
+        await event.reply(f"{nm},Anda **belum berlangganan** @{channel} botty. Silakan bergabung dan **tekan tombol di bawah ini** untuk membongkar diri Anda sendiri", buttons=[[Button.inline("Unmute 🗣️", data=f"unmute_{event.sender_id}")]])
 
 
 @BotzHub.on(events.callbackquery.CallbackQuery(data=re.compile(b"unmute_(.*)")))
@@ -124,11 +124,11 @@ async def _(event):
             except Exception as e:
                 print(str(e))
                 return
-            msg = f"•Welcome {nm}  👋 This is {(await event.get_chat()).title}•\n\nChannel » @BottyCu\n\nAnda bebas menyarankan apa pun yang terkait pembahasan member, Minta bantuan apa pun dan bantu pengembangannya ❤️\n\nRead the rules and join the Chat ...! , Everyone must follow the rules🥳"
+            msg = f"•Welcome {nm}  👋 This is {(await event.get_chat()).title}•\n\nChannel » @BottyCu\n\nAnda bebas menyarankan apa pun yang terkait pembahasan member, Minta bantuan apa pun dan bantu pengembangannya ❤️\n\nRead the rules and join the Chat ...!,Everyone must follow the rules🥳"
             butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
             await event.edit(msg, buttons=butt)
     else:
-        await event.answer("You are an old member and can speak freely! This isn't for you!", cache_time=0, alert=True)
+        await event.answer("Anda adalah anggota lama dan dapat berbicara dengan bebas! Ini bukan untukmu!", cache_time=0, alert=True)
 
 @BotzHub.on(events.NewMessage(pattern="/start"))
 async def strt(event):
