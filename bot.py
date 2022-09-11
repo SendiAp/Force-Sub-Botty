@@ -1,5 +1,17 @@
-#clone repo Aditya
-#edit by sendi
+#    This file is part of the ForveSub distribution (https://github.com/xditya/ForceSub).
+#    Copyright (c) 2021 Adiya
+#    
+#    This program is free software: you can redistribute it and/or modify  
+#    it under the terms of the GNU General Public License as published by  
+#    the Free Software Foundation, version 3.
+# 
+#    This program is distributed in the hope that it will be useful, but 
+#    WITHOUT ANY WARRANTY; without even the implied warranty of 
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+#    General Public License for more details.
+# 
+#    License can be found in < https://github.com/xditya/ForceSub/blob/main/License> .
+
 import logging
 import asyncio
 import string
@@ -81,10 +93,10 @@ async def _(event):
         x = await get_user_join(user.id)
         if x is True:
             msg = welcome_msg.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
-            butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
+            butt = [Button.url("Channel", url=f"https://t.me/{channel}")]
         else:
             msg = welcome_not_joined.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
-            butt = [Button.inline("Unmute 🗣️", data=f"unmute_{user.id}")]
+            butt = [Button.url("Channel", url=f"https://t.me/{channel}"), Button.inline("UnMute Me", data=f"unmute_{user.id}")]
             await BotzHub.edit_permissions(event.chat.id, user.id, until_date=None, send_messages=False)
         
         await event.reply(msg, buttons=butt)
@@ -107,7 +119,7 @@ async def mute_on_msg(event):
         except Exception as e:
             print(str(e))
             return
-        await event.reply(f"{nm},Anda **belum berlangganan** @{channel} botty. Silakan bergabung dan **tekan tombol di bawah ini** untuk membongkar diri Anda sendiri", buttons=[[Button.inline("Unmute 🗣️", data=f"unmute_{event.sender_id}")]])
+        await event.reply(f"Hey {nm}, seems like you haven't joined our channel. Please join @{channel} and then press the button below to unmute yourself!", buttons=[[Button.url("Channel", url=f"https://t.me/{channel}")], [Button.inline("UnMute Me", data=f"unmute_{event.sender_id}")]])
 
 
 @BotzHub.on(events.callbackquery.CallbackQuery(data=re.compile(b"unmute_(.*)")))
@@ -117,7 +129,7 @@ async def _(event):
         x = await get_user_join(uid)
         nm = (await BotzHub(GetFullUserRequest(uid))).user.first_name
         if x is False:
-            await event.answer(f"Anda belum bergabung di channel @{channel}!", cache_time=0, alert=True)
+            await event.answer(f"You haven't joined @{channel} yet!", cache_time=0, alert=True)
         elif x is True:
             try:
                 await BotzHub.edit_permissions(event.chat.id, uid, until_date=None, send_messages=True)
@@ -125,14 +137,15 @@ async def _(event):
                 print(str(e))
                 return
             msg = f"Welcome to {(await event.get_chat()).title}, {nm}!\nGood to see you here!"
-            butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
+            butt = [Button.url("Channel", url=f"https://t.me/{channel}")]
             await event.edit(msg, buttons=butt)
     else:
-        await event.answer("Anda adalah anggota lama dan dapat berbicara dengan bebas! Ini bukan untukmu!", cache_time=0, alert=True)
+        await event.answer("You are an old member and can speak freely! This isn't for you!", cache_time=0, alert=True)
 
 @BotzHub.on(events.NewMessage(pattern="/start"))
 async def strt(event):
-    await event.reply(f"Bot ini milik @BottyCu,Hanya admin yang bisa mengakses bot ini.")
+    await event.reply(f"Hi. I'm a force subscribe bot made specially for @{channel}!\n\nCheckout @BotzHub :)", buttons=[Button.url("Channel", url=f"https://t.me/{channel}"), Button.url("Repository", url="https://github.com/xditya/ForceSub")])
+
     
 print("ForceSub Bot has started.\nDo visit @BotzHub!")
 BotzHub.run_until_disconnected()
