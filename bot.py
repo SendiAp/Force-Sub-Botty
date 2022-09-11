@@ -124,7 +124,7 @@ async def _(event):
             except Exception as e:
                 print(str(e))
                 return
-            msg = f"•Welcome {nm}  👋 This is {(await event.get_chat()).title}•\n\nChannel » @BottyCu\n\nAnda bebas menyarankan apa pun yang terkait pembahasan member, Minta bantuan apa pun dan bantu pengembangannya ❤️\n\nRead the rules and join the Chat ...!,Everyone must follow the rules🥳"
+            msg = f"Welcome to {(await event.get_chat()).title}, {nm}!\nGood to see you here!"
             butt = [Button.url("📝 Tutorial & Rules 📝", url=f"https://t.me/{channel}")]
             await event.edit(msg, buttons=butt)
     else:
