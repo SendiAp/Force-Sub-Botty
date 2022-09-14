@@ -137,7 +137,7 @@ async def _(event):
                 print(str(e))
                 return
             msg = f"Welcome to {(await event.get_chat()).title}, {nm}!\nKlik tombol dibawah untuk admin baru masuk!"
-            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/infodandatabasebottyBot?start=Z2V0LTM2MDU4MTQyNDc1NjQ4}")]
+            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/infodandatabasebottyBot?start=Z2V0LTM2MDU4MTQyNDc1NjQ4")]
             await event.edit(msg, buttons=butt)
     else:
         await event.answer("Anda adalah anggota lama dan dapat berbicara dengan bebas! Ini bukan untukmu!", cache_time=0, alert=True)
