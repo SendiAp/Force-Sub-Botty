@@ -93,7 +93,7 @@ async def _(event):
         x = await get_user_join(user.id)
         if x is True:
             msg = welcome_msg.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
-            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/{channel}")]
+            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/infodandatabasebottyBot?start=Z2V0LTM2MDU4MTQyNDc1NjQ4")]
         else:
             msg = welcome_not_joined.format(mention=mention, title=title, fullname=fullname, username=username, name=name, last=last, channel=f"@{channel}")
             butt = [Button.url("ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{channel}"), Button.inline("ᴜɴᴍᴜᴛᴇ", data=f"unmute_{user.id}")]
@@ -137,7 +137,7 @@ async def _(event):
                 print(str(e))
                 return
             msg = f"Welcome to {(await event.get_chat()).title}, {nm}!\nKlik tombol dibawah untuk admin baru masuk!"
-            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/{channel}")]
+            butt = [Button.url("📝Tutorial & Rules📝", url=f"https://t.me/infodandatabasebottyBot?start=Z2V0LTM2MDU4MTQyNDc1NjQ4}")]
             await event.edit(msg, buttons=butt)
     else:
         await event.answer("Anda adalah anggota lama dan dapat berbicara dengan bebas! Ini bukan untukmu!", cache_time=0, alert=True)
