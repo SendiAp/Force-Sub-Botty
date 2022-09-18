@@ -144,7 +144,7 @@ async def _(event):
 
 @BotzHub.on(events.NewMessage(pattern="/start"))
 async def strt(event):
-    await event.reply(f"Bot ini khusus admin botty, jangan akses bot ini kecuali owner.")
+    await event.delete()
 
     
 print("ForceSub Bot has started.\nDo visit @BotzHub!")
